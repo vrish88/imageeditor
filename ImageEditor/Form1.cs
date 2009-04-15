@@ -12,10 +12,14 @@ namespace ImageEditor
 {
     public partial class Form1 : Form
     {
+        private readonly EffectsBox childEffectsBox;
+
         public Form1()
         {
             InitializeComponent();
         }
+
+        public static PictureBox openImage = new PictureBox();
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
@@ -44,6 +48,17 @@ namespace ImageEditor
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
             AForge.Imaging.Filters.Sepia filter = new AForge.Imaging.Filters.Sepia();
             ImageBoxInApp.Image = filter.Apply(image);
+        }
+
+        private void blackAndWhiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EffectsBox effectsBox = new EffectsBox(ImageBoxInApp);
+            effectsBox.ShowDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            openImage = ImageBoxInApp;
         }
     }
 }

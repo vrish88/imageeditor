@@ -36,13 +36,13 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.ImageBoxInApp = new System.Windows.Forms.PictureBox();
             this.sepiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blackAndWhiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pixallateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.ImageBoxInApp = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageBoxInApp)).BeginInit();
             this.SuspendLayout();
@@ -114,19 +114,6 @@
             this.effectsToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.effectsToolStripMenuItem.Text = "Effects";
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // ImageBoxInApp
-            // 
-            this.ImageBoxInApp.Location = new System.Drawing.Point(26, 46);
-            this.ImageBoxInApp.Name = "ImageBoxInApp";
-            this.ImageBoxInApp.Size = new System.Drawing.Size(358, 204);
-            this.ImageBoxInApp.TabIndex = 1;
-            this.ImageBoxInApp.TabStop = false;
-            // 
             // sepiaToolStripMenuItem
             // 
             this.sepiaToolStripMenuItem.Name = "sepiaToolStripMenuItem";
@@ -139,6 +126,7 @@
             this.blackAndWhiteToolStripMenuItem.Name = "blackAndWhiteToolStripMenuItem";
             this.blackAndWhiteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.blackAndWhiteToolStripMenuItem.Text = "Black and White";
+            this.blackAndWhiteToolStripMenuItem.Click += new System.EventHandler(this.blackAndWhiteToolStripMenuItem_Click);
             // 
             // pixallateToolStripMenuItem
             // 
@@ -157,6 +145,19 @@
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
             this.blurToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.blurToolStripMenuItem.Text = "Blur";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // ImageBoxInApp
+            // 
+            this.ImageBoxInApp.Location = new System.Drawing.Point(26, 46);
+            this.ImageBoxInApp.Name = "ImageBoxInApp";
+            this.ImageBoxInApp.Size = new System.Drawing.Size(358, 204);
+            this.ImageBoxInApp.TabIndex = 1;
+            this.ImageBoxInApp.TabStop = false;
             // 
             // Form1
             // 
