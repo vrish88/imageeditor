@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GenericUndoRedo</name>
+    </assembly>
+    <members>
+        <member name="T:GenericUndoRedo.CompoundMemento`1">
+            <summary>
+            A class used to group multiple mementos together, which can be pushed on to the undo stack as a single memento. 
+            With this class, multiple consecutive actions can be recognized as a single action, which are undo as an entity. 
+            It also implements the <see cref="T:GenericUndoRedo.IMemento`1"/> interface, which means one <see cref="T:GenericUndoRedo.CompoundMemento`1"/> can be a 
+            member of another <see cref="T:GenericUndoRedo.CompoundMemento`1"/>. Therefore it is possible to create hierachical mementos. 
+            </summary>
+            <seealso cref="T:GenericUndoRedo.IMemento`1"/>
+        </member>
+        <member name="T:GenericUndoRedo.IMemento`1">
+            <summary>
+            The most generic interface of a memento class. A memento is a state that can be saved and restored.
+            See details on <b>Memento Design Pattern</b> concept 
+            <a href="http://www.google.com/search?q=memento+design+pattern+&amp;btnG=Search">here</a>.
+            </summary>
+            <remarks>
+            <b>Design Considerations:</b>
+            The common memento struture a state property and sometimes an action property. 
+            In this design those properties are not explicitly , though essentially the 
+            In this design, if a memento stores a state and doesn't has the ability to Restore the target to the state, 
+            we have to introduce another class or a class per type of memento. 
+            With the memento itslef supporting Retore of the states, the state and action are not necessary to be exposed as public properties. 
+            And only one class for each type of memento is required, which is simpler to read and easier to maintain.
+            <b>NOTE</b> that every class that implements this interface should be serializable, 
+            by either annotate it with "[Serializabl]" or manuallying implementing the serialization methods. 
+            This requirement should be full filled in order to support the serialization of <see cref="T:GenericUndoRedo.UndoRedoHistory`1"/>.
+            </remarks>
+        </member>
+        <member name="M:GenericUndoRedo.IMemento`1.Restore(`0)">
+            <summary>
+            Restores target to the state memorized by this memento. Here shows an exapmle of usage.
+            <code>
+            public void TestMemento(IMemento&lt;Object&gt; memento, Object target) 
+            {
+                Object oldObj = target.Clone();
+                IMemento&lt;Object&gt; previousState = memento.Restore(target);
+                Object newObj = previousState.Restore(target);
+                Debug.Assert(oldObj.Equals(newObj));
+            }
+            </code>
+            </summary>
+            <returns>A memento of the state before restoring, which is refered to as a <i>Inverse Memento</i> of this memento.</returns>
+            <remarks>
+            Being able to restore its own state, undo can be implemented using an undo stack. But that's not enough for implementing redo. 
+            The returned inverse memento is the key to support redo.
+            </remarks>
+        </member>
+        <member name="M:GenericUndoRedo.CompoundMemento`1.Add(GenericUndoRedo.IMemento{`0})">
+            <summary>
+            Adds memento to this complex memento. Note that the order of adding mementos is critical.
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:GenericUndoRedo.CompoundMemento`1.Restore(`0)">
+            <summary>
+            Implicity implememntation of <see cref="M:GenericUndoRedo.IMemento`1.Restore(`0)"/>, which returns <see cref="T:GenericUndoRedo.CompoundMemento`1"/>
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GenericUndoRedo.CompoundMemento`1.GenericUndoRedo#IMemento{T}#Restore(`0)">
+            <summary>
+            Explicity implememntation of <see cref="M:GenericUndoRedo.IMemento`1.Restore(`0)"/>
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GenericUndoRedo.CompoundMemento`1.Size">
+            <summary>
+            Gets number of sub-memento contained in this complex memento.
+            </summary>
+        </member>
+        <member name="T:GenericUndoRedo.UndoRedoHistory`1">
+            <summary>
+            This class represents an undo and redo history.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:GenericUndoRedo.IMemento`1"/>
+        </member>
+        <member name="F:GenericUndoRedo.UndoRedoHistory`1.subject">
+            <summary>
+            The subject that this undo redo history is about.
+            </summary>
+        </member>
+        <member name="F:GenericUndoRedo.UndoRedoHistory`1.undoStack">
+            <summary>
+            Undo stack with capacity
+            </summary>
+        </member>
+        <member name="F:GenericUndoRedo.UndoRedoHistory`1.redoStack">
+            <summary>
+            Redo stack with capacity
+            </summary>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.#ctor(`0)">
+            <summary>
+            Creates <see cref="T:GenericUndoRedo.UndoRedoHistory`1"/> with default capacity.
+            </summary>
+            <param name="subject"></param>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.#ctor(`0,System.Int32)">
+            <summary>
+            Creates <see cref="T:GenericUndoRedo.UndoRedoHistory`1"/> with given capacity.
+            </summary>
+            <param name="subject"></param>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.BeginCompoundDo">
+            <summary>
+            Begins a complex memento for grouping.
+            </summary>
+            <remarks>
+            From the time this method is called till the time 
+            <see cref="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo"/> is called, all the <i>DO</i> actions (by calling 
+            <see cref="M:GenericUndoRedo.UndoRedoHistory`1.Do(GenericUndoRedo.IMemento{`0})"/>) are added into a temporary 
+            <see cref="T:GenericUndoRedo.CompoundMemento`1"/> and this memnto will be pushed into the undo 
+            stack when <see cref="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo"/> is called. 
+            <br/>
+            If this method is called, it's programmer's responsibility to call <see cref="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo"/>, 
+            or else this history will be in incorrect state and stop functioning.
+            <br/>
+            Sample Code:
+            <br/>
+            <code>
+            // Version 1: Without grouping
+            UndoRedoHistory&lt;Foo&gt; history = new UndoRedoHistory&lt;Foo&gt;();
+            history.Clear();
+            history.Do(memento1);
+            history.Do(memento2);
+            history.Do(memento3);
+            // history has 3 actions on its undo stack.
+            
+            // Version 1: With grouping
+            history.BeginCompoundDo(); // starting grouping
+            history.Do(memento1);
+            history.Do(memento2);
+            history.Do(memento3);
+            hisotry.EndCompoundDo(); // must be called to finish grouping
+            // history has only 1 action on its undo stack instead 3. 
+            // This single undo action will undo all actions memorized by memento 1 to 3.
+            </code>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown if previous grouping wasn't ended. See <see cref="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo"/>.
+            </exception>
+            <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo"/>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.EndCompoundDo">
+            <summary>
+            Ends grouping by pushing the complext memento created by <see cref="M:GenericUndoRedo.UndoRedoHistory`1.BeginCompoundDo"/> into the undo stack.
+            </summary>
+            <remarks>
+            For details on how <i>grouping</i> works, see <see cref="M:GenericUndoRedo.UndoRedoHistory`1.BeginCompoundDo"/>.
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown if grouping wasn't started. See <see cref="M:GenericUndoRedo.UndoRedoHistory`1.BeginCompoundDo"/>.
+            </exception>/// <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.BeginCompoundDo"/>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.Do(GenericUndoRedo.IMemento{`0})">
+            <summary>
+            Pushes an memento into the undo stack, any time the state of <see cref="F:GenericUndoRedo.UndoRedoHistory`1.subject"/> changes. 
+            </summary>
+            <param name="m"></param>
+            <remarks>
+            This method MUST be properly involked by programmers right before (preferably) or right after 
+            the state of <see cref="F:GenericUndoRedo.UndoRedoHistory`1.subject"/> is changed. 
+            Whenever <see cref="M:GenericUndoRedo.UndoRedoHistory`1.Do(GenericUndoRedo.IMemento{`0})"/> is called, the status of <see cref="P:GenericUndoRedo.UndoRedoHistory`1.InUndoRedo"/> 
+            should aways be checked first. See details at <see cref="P:GenericUndoRedo.UndoRedoHistory`1.InUndoRedo"/>. 
+            This method causes redo stack to be cleared.
+            </remarks>
+            <seealso cref="P:GenericUndoRedo.UndoRedoHistory`1.InUndoRedo"/>
+            <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.Undo"/>
+            <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.Redo"/>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1._Do(GenericUndoRedo.IMemento{`0})">
+            <summary>
+            Internal <b>DO</b> action with no error checking
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.Undo">
+            <summary>
+            Restores the subject to the previous state on the undo stack, and stores the state before undoing to redo stack.
+            Method <see cref="P:GenericUndoRedo.UndoRedoHistory`1.CanUndo"/> can be called before calling this method.
+            </summary>
+            <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.Redo"/>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.Redo">
+            <summary>
+            Restores the subject to the next state on the redo stack, and stores the state before redoing to undo stack. 
+            Method <see cref="P:GenericUndoRedo.UndoRedoHistory`1.CanRedo"/> can be called before calling this method.
+            </summary>
+            <seealso cref="M:GenericUndoRedo.UndoRedoHistory`1.Undo"/>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.Clear">
+            <summary>
+            Clear the entire undo and redo stacks.
+            </summary>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.PeekUndo">
+            <summary>
+            Gets, without removing, the top memento on the undo stack.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GenericUndoRedo.UndoRedoHistory`1.PeekRedo">
+            <summary>
+            Gets, without removing, the top memento on the redo stack.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.InUndoRedo">
+            <summary>
+            Gets a value indicating if the history is in the process of undoing or redoing.
+            </summary>
+            <remarks>
+            This property is extremely useful to prevent undesired "Do" being executed. 
+            That could occur in the following scenario:
+            event X causees a Do action and certain Undo / Redo action causes event X, 
+            i.e. Undo / Redo causes a Do action, which will render history in a incorrect state.
+            So whenever <see cref="M:GenericUndoRedo.UndoRedoHistory`1.Do(GenericUndoRedo.IMemento{`0})"/> is called, the status of <see cref="P:GenericUndoRedo.UndoRedoHistory`1.InUndoRedo"/> 
+            should aways be checked first. Example:
+            <code>
+            void SomeEventHandler() 
+            {
+                if(!history.InUndoRedo) 
+                    history.Do(...);
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.UndoCount">
+            <summary>
+            Gets number of undo actions available
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.RedoCount">
+            <summary>
+            Gets number of redo actions available
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.SupportRedo">
+            <summary>
+            Gets or sets whether the history supports redo.
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.CanUndo">
+            <summary>
+            Checks if there are any stored state available on the undo stack.
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.UndoRedoHistory`1.CanRedo">
+            <summary>
+            Checks if there are any stored state available on the redo stack.
+            </summary>
+        </member>
+        <member name="T:GenericUndoRedo.RoundStack`1">
+            <summary>
+            Stack with capacity, bottom items beyond the capacity are discarded.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:GenericUndoRedo.RoundStack`1.#ctor(System.Int32)">
+            <summary>
+            Creates <see cref="T:GenericUndoRedo.RoundStack`1"/> with given capacity
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:GenericUndoRedo.RoundStack`1.Pop">
+            <summary>
+            Removes and returns the object at the top of the <see cref="T:GenericUndoRedo.RoundStack`1"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GenericUndoRedo.RoundStack`1.Push(`0)">
+            <summary>
+            Inserts an object at the top of the <see cref="T:GenericUndoRedo.RoundStack`1"/>.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:GenericUndoRedo.RoundStack`1.Peek">
+            <summary>
+            Returns the object at the top of the <see cref="T:GenericUndoRedo.RoundStack`1"/> without removing it.
+            </summary>
+        </member>
+        <member name="M:GenericUndoRedo.RoundStack`1.Clear">
+            <summary>
+            Removes all the objects from the <see cref="T:GenericUndoRedo.RoundStack`1"/>.
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.RoundStack`1.IsFull">
+            <summary>
+            Gets if the <see cref="T:GenericUndoRedo.RoundStack`1"/> is full.
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.RoundStack`1.Count">
+            <summary>
+            Gets the number of elements contained in the <see cref="T:GenericUndoRedo.RoundStack`1"/>.
+            </summary>
+        </member>
+        <member name="P:GenericUndoRedo.RoundStack`1.Capacity">
+            <summary>
+            Gets the capacity of the <see cref="T:GenericUndoRedo.RoundStack`1"/>.
+            </summary>
+        </member>
+    </members>
+</doc>
