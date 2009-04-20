@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects.cs" />
     <Compile Include="EffectsBox.cs">
       <SubType>Form</SubType>
     </Compile>

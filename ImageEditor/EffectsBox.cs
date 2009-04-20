@@ -29,7 +29,13 @@ namespace ImageEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
         }
     }
 }

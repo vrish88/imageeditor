@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using AForge;
+using ExtensionMethods;
 
 namespace ImageEditor
 {
@@ -17,6 +18,18 @@ namespace ImageEditor
         public Form1()
         {
             InitializeComponent();
+            changeMenuOptions(false);
+        }
+
+        private void changeMenuOptions(bool value)
+        {
+            this.saveAsToolStripMenuItem.Enabled = value;
+            this.sepiaToolStripMenuItem.Enabled = value;
+            this.blackAndWhiteToolStripMenuItem.Enabled = value;
+            this.blurToolStripMenuItem.Enabled = value;
+            this.jitterToolStripMenuItem.Enabled = value;
+            this.pixallateToolStripMenuItem.Enabled = value;
+            this.saveToolStripMenuItem.Enabled = value;
         }
 
         public static PictureBox openImage = new PictureBox();
@@ -40,14 +53,14 @@ namespace ImageEditor
             {
                 String filename = openFileDialog1.FileName;
                 ImageBoxInApp.Image = System.Drawing.Image.FromFile(filename);
+                changeMenuOptions(true);
             }
         }
 
         private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
-            AForge.Imaging.Filters.Sepia filter = new AForge.Imaging.Filters.Sepia();
-            ImageBoxInApp.Image = filter.Apply(image);
+            ImageBoxInApp.Image = image.ToSepia();
         }
 
         private void blackAndWhiteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -59,6 +72,52 @@ namespace ImageEditor
         private void Form1_Load(object sender, EventArgs e)
         {
             openImage = ImageBoxInApp;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog Save = new SaveFileDialog();
+            try
+            {
+                //Open a file dialog for saving map documents
+
+                Save.Title = "Save Bill as Image";
+                Save.Filter = "||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
+                if (Save.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            //Exit if no map document is selected
+            string sFilePath;
+            sFilePath = Save.FileName;
+            if (sFilePath == "")
+            {
+                return;
+            } 
+            else if (Save.FileName.Contains(".jpg"))
+            {
+                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else if (Save.FileName.Contains(".png"))
+            {
+                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            else
+            {
+                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Bmp);
+            }
+             
+        }
+
+        private void pixallateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+            ImageBoxInApp.Image = image.ToPixalation();
         }
     }
 }
