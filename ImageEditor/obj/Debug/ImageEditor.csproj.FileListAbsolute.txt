@@ -15,3 +15,12 @@ C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ImageEditor\ImageEditor\bin\Debug\ImageEditor.exe
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ImageEditor\ImageEditor\bin\Debug\ImageEditor.pdb
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ImageEditor\ImageEditor\obj\Debug\ImageEditor.EffectsBox.resources
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.exe
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.pdb
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.EffectsBox.resources
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.Form1.resources
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.Properties.Resources.resources
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\obj\Debug\ImageEditor.csproj.GenerateResource.Cache
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\bin\Debug\ImageEditor.exe
+C:\Documents and Settings\OTC\My Documents\Visual Studio 2008\Projects\Projects\VisualEditor\ImageEditor\bin\Debug\ImageEditor.pdb

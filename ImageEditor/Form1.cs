@@ -15,6 +15,7 @@ namespace ImageEditor
     {
         private readonly EffectsBox childEffectsBox;
 
+
         public Form1()
         {
             InitializeComponent();
@@ -52,7 +53,14 @@ namespace ImageEditor
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 String filename = openFileDialog1.FileName;
-                ImageBoxInApp.Image = System.Drawing.Image.FromFile(filename);
+                Image img = System.Drawing.Image.FromFile(filename);
+                int h = img.Height;
+                int w = img.Width;
+                ImageBoxInApp.Height = h;
+                ImageBoxInApp.Width = w;
+                this.Height = h;
+                this.Width = w;
+                ImageBoxInApp.Image = img;
                 changeMenuOptions(true);
             }
         }
@@ -119,5 +127,6 @@ namespace ImageEditor
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
             ImageBoxInApp.Image = image.ToPixalation();
         }
+
     }
 }
