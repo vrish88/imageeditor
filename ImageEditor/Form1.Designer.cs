@@ -43,6 +43,8 @@
             this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ImageBoxInApp = new System.Windows.Forms.PictureBox();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageBoxInApp)).BeginInit();
             this.SuspendLayout();
@@ -100,6 +102,9 @@
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.rToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this.editToolStripMenuItem.Text = "Edit";
@@ -157,11 +162,25 @@
             // ImageBoxInApp
             // 
             this.ImageBoxInApp.Location = new System.Drawing.Point(35, 57);
-            this.ImageBoxInApp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ImageBoxInApp.Margin = new System.Windows.Forms.Padding(4);
             this.ImageBoxInApp.Name = "ImageBoxInApp";
             this.ImageBoxInApp.Size = new System.Drawing.Size(477, 251);
             this.ImageBoxInApp.TabIndex = 1;
             this.ImageBoxInApp.TabStop = false;
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // rToolStripMenuItem
+            // 
+            this.rToolStripMenuItem.Name = "rToolStripMenuItem";
+            this.rToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.rToolStripMenuItem.Text = "Redo";
+            this.rToolStripMenuItem.Click += new System.EventHandler(this.rToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -171,7 +190,7 @@
             this.Controls.Add(this.ImageBoxInApp);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Image Editor";
             this.menuStrip1.ResumeLayout(false);
@@ -199,6 +218,8 @@
         private System.Windows.Forms.ToolStripMenuItem jitterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem blurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rToolStripMenuItem;
     }
 }
 
