@@ -20,5 +20,6 @@ namespace ExtensionMethods
             AForge.Imaging.Filters.Pixellate filter = new AForge.Imaging.Filters.Pixellate();
             return filter.Apply(bitmap);
         }
+
     }
 }

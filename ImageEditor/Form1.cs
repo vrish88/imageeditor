@@ -81,8 +81,8 @@ namespace ImageEditor
             {
                 //Open a file dialog for saving map documents
 
-                Save.Title = "Save Bill as Image";
-                Save.Filter = "||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
+                Save.Title = "Save";
+                Save.Filter = "Please select a file type||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
                 if (Save.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 {
                     return;
@@ -118,6 +118,11 @@ namespace ImageEditor
         {
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
             ImageBoxInApp.Image = image.ToPixalation();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

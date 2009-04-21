@@ -91,12 +91,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Downloads\GenericUndoRedoDemo\GenericUndoRedo\GenericUndoRedo.csproj">
-      <Project>{E5323F74-C017-4AD0-9FA1-E53AB85B23BF}</Project>
-      <Name>GenericUndoRedo</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
