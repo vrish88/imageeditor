@@ -155,6 +155,7 @@ namespace ImageEditor
                 RCAdd(ImageBoxInApp.Image);
                 ImageBoxInApp.Image = UChanges.Pop();
             }
+<<<<<<< HEAD:ImageEditor/Form1.cs
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -169,6 +170,18 @@ namespace ImageEditor
                 UCAdd(ImageBoxInApp.Image);
                 ImageBoxInApp.Image = RChanges.Pop();
             }
+
+>>>>>>> origin/master:ImageEditor/Form1.cs
         }
+
+        private void rToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RChanges.Count != 0)
+            {
+                UCAdd(ImageBoxInApp.Image);
+                ImageBoxInApp.Image = RChanges.Pop();
+            }
+        }
+
     }
 }
