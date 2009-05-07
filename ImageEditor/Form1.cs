@@ -15,10 +15,23 @@ namespace ImageEditor
     {
         private readonly EffectsBox childEffectsBox;
 
+        Stack<Image> UChanges = new Stack<Image>(5);
+        Stack<Image> RChanges = new Stack<Image>(5);
+
         public Form1()
         {
             InitializeComponent();
             changeMenuOptions(false);
+        }
+
+        public void UCAdd(Image img)
+        {
+            UChanges.Push(img);
+        }
+
+        public void RCAdd(Image img)
+        {
+            RChanges.Push(img);
         }
 
         private void changeMenuOptions(bool value)
@@ -52,21 +65,34 @@ namespace ImageEditor
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 String filename = openFileDialog1.FileName;
-                ImageBoxInApp.Image = System.Drawing.Image.FromFile(filename);
+                Image img = System.Drawing.Image.FromFile(filename);
+                int h = img.Height;
+                int w = img.Width;
+                ImageBoxInApp.Height = h;
+                ImageBoxInApp.Width = w;
+                this.Height = h;
+                this.Width = w;
+                ImageBoxInApp.Image = img;
                 changeMenuOptions(true);
+                RChanges.Clear();
+                UChanges.Clear();
             }
         }
 
         private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            UCAdd(ImageBoxInApp.Image);
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
             ImageBoxInApp.Image = image.ToSepia();
+            RChanges.Clear();
         }
 
         private void blackAndWhiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            UCAdd(ImageBoxInApp.Image);
             EffectsBox effectsBox = new EffectsBox(ImageBoxInApp);
             effectsBox.ShowDialog();
+            RChanges.Clear();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -116,13 +142,33 @@ namespace ImageEditor
 
         private void pixallateToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            UCAdd(ImageBoxInApp.Image);
             System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
             ImageBoxInApp.Image = image.ToPixalation();
+            RChanges.Clear();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (UChanges.Count != 0)
+            {
+                RCAdd(ImageBoxInApp.Image);
+                ImageBoxInApp.Image = UChanges.Pop();
+            }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void rToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RChanges.Count != 0)
+            {
+                UCAdd(ImageBoxInApp.Image);
+                ImageBoxInApp.Image = RChanges.Pop();
+            }
         }
     }
 }
