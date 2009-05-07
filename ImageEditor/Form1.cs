@@ -43,6 +43,8 @@ namespace ImageEditor
             this.jitterToolStripMenuItem.Enabled = value;
             this.pixallateToolStripMenuItem.Enabled = value;
             this.saveToolStripMenuItem.Enabled = value;
+            this.rToolStripMenuItem.Enabled = value;
+            this.undoToolStripMenuItem.Enabled = value;
         }
 
         public static PictureBox openImage = new PictureBox();
@@ -155,7 +157,6 @@ namespace ImageEditor
                 RCAdd(ImageBoxInApp.Image);
                 ImageBoxInApp.Image = UChanges.Pop();
             }
-<<<<<<< HEAD:ImageEditor/Form1.cs
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,16 +164,6 @@ namespace ImageEditor
             this.Close();
         }
 
-        private void rToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RChanges.Count != 0)
-            {
-                UCAdd(ImageBoxInApp.Image);
-                ImageBoxInApp.Image = RChanges.Pop();
-            }
-
->>>>>>> origin/master:ImageEditor/Form1.cs
-        }
 
         private void rToolStripMenuItem_Click(object sender, EventArgs e)
         {

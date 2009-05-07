@@ -43,10 +43,6 @@
             this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ImageBoxInApp = new System.Windows.Forms.PictureBox();
-<<<<<<< HEAD:ImageEditor/Form1.Designer.cs
-
-=======
->>>>>>> origin/master:ImageEditor/Form1.Designer.cs
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -103,10 +99,8 @@
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Close";
-<<<<<<< HEAD:ImageEditor/Form1.Designer.cs
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click>;
-=======
->>>>>>> origin/master:ImageEditor/Form1.Designer.cs
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+
             // 
             // editToolStripMenuItem
             // 
@@ -176,10 +170,7 @@
             this.ImageBoxInApp.TabIndex = 1;
             this.ImageBoxInApp.TabStop = false;
             // 
-<<<<<<< HEAD:ImageEditor/Form1.Designer.cs
 
-=======
->>>>>>> origin/master:ImageEditor/Form1.Designer.cs
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
@@ -187,15 +178,14 @@
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
-            // rToolStripMenuItem
-<<<<<<< HEAD:ImageEditor/Form1.Designer.cs
+            // rToolStripMenuItems
 
             // 
             this.rToolStripMenuItem.Name = "rToolStripMenuItem";
             this.rToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rToolStripMenuItem.Text = "Redo";
             this.rToolStripMenuItem.Click += new System.EventHandler(this.rToolStripMenuItem_Click);
->>>>>>> origin/master:ImageEditor/Form1.Designer.cs
+
             // 
             this.rToolStripMenuItem.Name = "rToolStripMenuItem";
             this.rToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
