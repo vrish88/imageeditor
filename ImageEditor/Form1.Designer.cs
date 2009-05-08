@@ -94,8 +94,9 @@
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -179,9 +180,11 @@
             // 
             // ImageBoxInApp
             // 
-            this.ImageBoxInApp.Location = new System.Drawing.Point(26, 46);
+            this.ImageBoxInApp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ImageBoxInApp.Location = new System.Drawing.Point(0, 24);
             this.ImageBoxInApp.Name = "ImageBoxInApp";
-            this.ImageBoxInApp.Size = new System.Drawing.Size(358, 204);
+            this.ImageBoxInApp.Size = new System.Drawing.Size(700, 242);
+            this.ImageBoxInApp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ImageBoxInApp.TabIndex = 1;
             this.ImageBoxInApp.TabStop = false;
             // 

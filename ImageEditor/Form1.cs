@@ -61,6 +61,8 @@ namespace ImageEditor
 
         }
 
+        public String filename { get; set; }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = @"C:\Documents and Settings\Administrator\My Documents\My Pictures";
@@ -68,18 +70,29 @@ namespace ImageEditor
             openFileDialog1.Filter = "All Files|*.*|Windows Bitmaps|*.bmp|JPEG Files|*.jpg";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                String filename = openFileDialog1.FileName;
+                filename = openFileDialog1.FileName;
                 Image img = System.Drawing.Image.FromFile(filename);
                 int h = img.Height;
                 int w = img.Width;
-                ImageBoxInApp.Height = h;
-                ImageBoxInApp.Width = w;
-                this.Height = h;
-                this.Width = w;
+                adjustWindow(w, h);
                 ImageBoxInApp.Image = img;
                 changeMenuOptions(true);
                 RChanges.Clear();
                 UChanges.Clear();
+            }
+        }
+
+        public void adjustWindow(int width, int height)
+        {
+            if (height > this.Height)
+            {
+                ImageBoxInApp.Height = height;
+                this.Height = height;
+            }
+            if (width > this.Width)
+            {
+                ImageBoxInApp.Width = width;
+                this.Width = width;
             }
         }
 
@@ -106,42 +119,28 @@ namespace ImageEditor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog Save = new SaveFileDialog();
-            try
+            if (filename == "")
             {
-                //Open a file dialog for saving map documents
+                SaveFileDialog Save = new SaveFileDialog();
+                try
+                {
+                    //Open a file dialog for saving map documents
 
-                Save.Title = "Save";
-                Save.Filter = "Please select a file type||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
-                if (Save.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    Save.Title = "Save";
+                    Save.Filter = "Please select a file type||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
+                    if (Save.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                catch (Exception)
                 {
                     return;
                 }
             }
-            catch (Exception)
-            {
-                return;
-            }
             //Exit if no map document is selected
-            string sFilePath;
-            sFilePath = Save.FileName;
-            if (sFilePath == "")
-            {
-                return;
-            } 
-            else if (Save.FileName.Contains(".jpg"))
-            {
-                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            else if (Save.FileName.Contains(".png"))
-            {
-                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Png);
-            }
-            else
-            {
-                ImageBoxInApp.Image.Save(sFilePath, System.Drawing.Imaging.ImageFormat.Bmp);
-            }
-             
+
+            ImageBoxInApp.Image.Save(filename);             
         }
 
         private void pixallateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,6 +183,7 @@ namespace ImageEditor
                 UCAdd(ImageBoxInApp.Image);
                 System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
                 ImageBoxInApp.Image = image.resize(resizeForm.Width, resizeForm.Height);
+                adjustWindow(resizeForm.Width, resizeForm.Height);
                 RChanges.Clear();
             }
         }
@@ -196,7 +196,46 @@ namespace ImageEditor
                 UCAdd(ImageBoxInApp.Image);
                 System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
                 ImageBoxInApp.Image = image.rotate(rotateForm.Degrees);
+                adjustWindow(image.Width, image.Height);
                 RChanges.Clear();
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog Save = new SaveFileDialog();
+            try
+            {
+                //Open a file dialog for saving map documents
+
+                Save.Title = "Save";
+                Save.Filter = "Please select a file type||Bitmap File (*.bmp)|*.bmp|JPEG file (*.jpg)|*.jpg|PNG file(*.png)|*.png";
+                if (Save.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            if (filename == "")
+            {
+                return;
+            }
+            else if (Save.FileName.Contains(".jpg"))
+            {
+
+                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else if (Save.FileName.Contains(".png"))
+            {
+                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            else
+            {
+                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
             }
         }
     }
