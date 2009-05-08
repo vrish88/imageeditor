@@ -21,5 +21,16 @@ namespace ExtensionMethods
             return filter.Apply(bitmap);
         }
 
+        public static Bitmap resize(this Bitmap bitmap, int width, int height)
+        {
+            AForge.Imaging.Filters.ResizeBicubic filter = new AForge.Imaging.Filters.ResizeBicubic(width, height);
+            return filter.Apply(bitmap);
+        }
+
+        public static Bitmap rotate(this Bitmap bitmpa, int degrees)
+        {
+            AForge.Imaging.Filters.RotateBicubic filter = new AForge.Imaging.Filters.RotateBicubic(degrees);
+            return filter.Apply(bitmpa);
+        }
     }
 }

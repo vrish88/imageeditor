@@ -45,6 +45,8 @@ namespace ImageEditor
             this.saveToolStripMenuItem.Enabled = value;
             this.rToolStripMenuItem.Enabled = value;
             this.undoToolStripMenuItem.Enabled = value;
+            this.resizeToolStripMenuItem.Enabled = value;
+            this.rotateToolStripMenuItem.Enabled = value;
         }
 
         public static PictureBox openImage = new PictureBox();
@@ -174,5 +176,28 @@ namespace ImageEditor
             }
         }
 
+        private void resizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resize resizeForm = new resize();
+            if (resizeForm.ShowDialog() == DialogResult.OK)
+            {
+                UCAdd(ImageBoxInApp.Image);
+                System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+                ImageBoxInApp.Image = image.resize(resizeForm.Width, resizeForm.Height);
+                RChanges.Clear();
+            }
+        }
+
+        private void rotateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Rotate rotateForm = new Rotate();
+            if (rotateForm.ShowDialog() == DialogResult.OK)
+            {
+                UCAdd(ImageBoxInApp.Image);
+                System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+                ImageBoxInApp.Image = image.rotate(rotateForm.Degrees);
+                RChanges.Clear();
+            }
+        }
     }
 }

@@ -77,6 +77,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="resize.resx">
+      <DependentUpon>resize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rotate.resx">
+      <DependentUpon>Rotate.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -89,6 +95,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="resize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="resize.Designer.cs">
+      <DependentUpon>resize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rotate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rotate.Designer.cs">
+      <DependentUpon>Rotate.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
