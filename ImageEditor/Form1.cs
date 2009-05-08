@@ -111,8 +111,8 @@ namespace ImageEditor
         private void blackAndWhiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UCAdd(ImageBoxInApp.Image);
-            EffectsBox effectsBox = new EffectsBox(ImageBoxInApp);
-            effectsBox.ShowDialog();
+            System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+            ImageBoxInApp.Image = image.ToBlackAndWhite();
             RChanges.Clear();
         }
 

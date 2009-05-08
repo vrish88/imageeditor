@@ -33,6 +33,12 @@ namespace ExtensionMethods
             return filter.Apply(bitmap);
         }
 
+        public static Bitmap ToBlackAndWhite(this Bitmap bitmap)
+        {
+            AForge.Imaging.Filters.GrayscaleY filter = new AForge.Imaging.Filters.GrayscaleY();
+            return filter.Apply(bitmap);
+        }
+
         public static Bitmap gaussianBlur(this Bitmap bitmap, int blur)
         {
             AForge.Imaging.Filters.GaussianBlur filter = new AForge.Imaging.Filters.GaussianBlur(Convert.ToDouble(blur), 9);
