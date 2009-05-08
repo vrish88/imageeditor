@@ -50,5 +50,11 @@ namespace ExtensionMethods
             AForge.Imaging.Filters.Jitter filter = new AForge.Imaging.Filters.Jitter();
             return filter.Apply(bitmap);
         }
+
+        public static Bitmap ToInvert(this Bitmap bitmap)
+        {
+            AForge.Imaging.Filters.Invert filter = new AForge.Imaging.Filters.Invert();
+            return filter.Apply(bitmap);
+        }
     }
 }

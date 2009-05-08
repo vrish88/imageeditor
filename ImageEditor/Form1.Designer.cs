@@ -48,6 +48,7 @@
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invertColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageBoxInApp)).BeginInit();
             this.SuspendLayout();
@@ -142,7 +143,8 @@
             this.blackAndWhiteToolStripMenuItem,
             this.pixallateToolStripMenuItem,
             this.jitterToolStripMenuItem,
-            this.blurToolStripMenuItem});
+            this.blurToolStripMenuItem,
+            this.invertColorToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
             this.effectsToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.effectsToolStripMenuItem.Text = "Effects";
@@ -223,6 +225,13 @@
             this.rotateToolStripMenuItem.Text = "Rotate";
             this.rotateToolStripMenuItem.Click += new System.EventHandler(this.rotateToolStripMenuItem_Click);
             // 
+            // invertColorToolStripMenuItem
+            // 
+            this.invertColorToolStripMenuItem.Name = "invertColorToolStripMenuItem";
+            this.invertColorToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.invertColorToolStripMenuItem.Text = "Invert Color";
+            this.invertColorToolStripMenuItem.Click += new System.EventHandler(this.invertColorToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,5 +272,6 @@
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invertColorToolStripMenuItem;
     }
 }

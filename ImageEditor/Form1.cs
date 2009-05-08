@@ -268,5 +268,13 @@ namespace ImageEditor
             ImageBoxInApp.Image = image.ToJitter();
             RChanges.Clear();
         }
+
+        private void invertColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UCAdd(ImageBoxInApp.Image);
+            System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+            ImageBoxInApp.Image = image.ToInvert();
+            RChanges.Clear();
+        }
     }
 }
