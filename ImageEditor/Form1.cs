@@ -28,11 +28,13 @@ namespace ImageEditor
         public void UCAdd(Image img)
         {
             UChanges.Push(img);
+            undoToolStripMenuItem.Enabled = true;
         }
 
         public void RCAdd(Image img)
         {
             RChanges.Push(img);
+            rToolStripMenuItem.Enabled = true;
         }
 
         private void changeMenuOptions(bool value)
@@ -81,6 +83,8 @@ namespace ImageEditor
                 ImageBoxInApp.Image = System.Drawing.Image.FromStream(imgStream);
                 img.Dispose();
                 changeMenuOptions(true);
+                undoToolStripMenuItem.Enabled = false;
+                rToolStripMenuItem.Enabled = false;
                 RChanges.Clear();
                 UChanges.Clear();
             }
@@ -167,6 +171,14 @@ namespace ImageEditor
             {
                 RCAdd(ImageBoxInApp.Image);
                 ImageBoxInApp.Image = UChanges.Pop();
+                if (UChanges.Count == 0)
+                {
+                    undoToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    undoToolStripMenuItem.Enabled = true;
+                }
             }
         }
 
@@ -182,6 +194,14 @@ namespace ImageEditor
             {
                 UCAdd(ImageBoxInApp.Image);
                 ImageBoxInApp.Image = RChanges.Pop();
+                if (RChanges.Count == 0)
+                {
+                    rToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    rToolStripMenuItem.Enabled = true;
+                }
             }
         }
 
