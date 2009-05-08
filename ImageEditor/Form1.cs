@@ -260,5 +260,13 @@ namespace ImageEditor
                 RChanges.Clear();
             }
         }
+
+        private void jitterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UCAdd(ImageBoxInApp.Image);
+            System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+            ImageBoxInApp.Image = image.ToJitter();
+            RChanges.Clear();
+        }
     }
 }

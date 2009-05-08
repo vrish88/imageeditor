@@ -44,5 +44,11 @@ namespace ExtensionMethods
             AForge.Imaging.Filters.GaussianBlur filter = new AForge.Imaging.Filters.GaussianBlur(Convert.ToDouble(blur), 9);
             return filter.Apply(bitmap);
         }
+
+        public static Bitmap ToJitter(this Bitmap bitmap)
+        {
+            AForge.Imaging.Filters.Jitter filter = new AForge.Imaging.Filters.Jitter();
+            return filter.Apply(bitmap);
+        }
     }
 }
