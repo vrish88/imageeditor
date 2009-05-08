@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using AForge;
 using ExtensionMethods;
+using System.IO;
 
 namespace ImageEditor
 {
@@ -72,10 +73,13 @@ namespace ImageEditor
             {
                 filename = openFileDialog1.FileName;
                 Image img = System.Drawing.Image.FromFile(filename);
+                MemoryStream imgStream = new MemoryStream();
+                img.Save(imgStream, System.Drawing.Imaging.ImageFormat.Bmp);
                 int h = img.Height;
                 int w = img.Width;
                 adjustWindow(w, h);
-                ImageBoxInApp.Image = img;
+                ImageBoxInApp.Image = System.Drawing.Image.FromStream(imgStream);
+                img.Dispose();
                 changeMenuOptions(true);
                 RChanges.Clear();
                 UChanges.Clear();
@@ -132,15 +136,21 @@ namespace ImageEditor
                     {
                         return;
                     }
+                    else
+                    {
+                        filename = Save.FileName;
+                    }
                 }
                 catch (Exception)
                 {
                     return;
                 }
             }
-            //Exit if no map document is selected
 
-            ImageBoxInApp.Image.Save(filename);             
+            // Delete existing file first
+            System.IO.File.Delete(filename);
+            // then save it
+            ImageBoxInApp.Image.Save(filename);
         }
 
         private void pixallateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -226,16 +236,28 @@ namespace ImageEditor
             }
             else if (Save.FileName.Contains(".jpg"))
             {
-
-                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                ImageBoxInApp.Image.Save(Save.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             else if (Save.FileName.Contains(".png"))
             {
-                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+                ImageBoxInApp.Image.Save(Save.FileName, System.Drawing.Imaging.ImageFormat.Png);
             }
             else
             {
-                ImageBoxInApp.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
+                ImageBoxInApp.Image.Save(Save.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+            }
+            filename = Save.FileName;
+        }
+
+        private void blurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Gaussian gaussianForm = new Gaussian();
+            if (gaussianForm.ShowDialog() == DialogResult.OK)
+            {
+                UCAdd(ImageBoxInApp.Image);
+                System.Drawing.Bitmap image = (Bitmap)ImageBoxInApp.Image;
+                ImageBoxInApp.Image = image.gaussianBlur(gaussianForm.blur);
+                RChanges.Clear();
             }
         }
     }

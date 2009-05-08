@@ -171,7 +171,8 @@
             // 
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
             this.blurToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.blurToolStripMenuItem.Text = "Blur";
+            this.blurToolStripMenuItem.Text = "Gaussian Blur";
+            this.blurToolStripMenuItem.Click += new System.EventHandler(this.blurToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 

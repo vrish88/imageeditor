@@ -27,10 +27,16 @@ namespace ExtensionMethods
             return filter.Apply(bitmap);
         }
 
-        public static Bitmap rotate(this Bitmap bitmpa, int degrees)
+        public static Bitmap rotate(this Bitmap bitmap, int degrees)
         {
             AForge.Imaging.Filters.RotateBicubic filter = new AForge.Imaging.Filters.RotateBicubic(degrees);
-            return filter.Apply(bitmpa);
+            return filter.Apply(bitmap);
+        }
+
+        public static Bitmap gaussianBlur(this Bitmap bitmap, int blur)
+        {
+            AForge.Imaging.Filters.GaussianBlur filter = new AForge.Imaging.Filters.GaussianBlur(Convert.ToDouble(blur), 9);
+            return filter.Apply(bitmap);
         }
     }
 }
